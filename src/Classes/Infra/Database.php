@@ -24,13 +24,28 @@ class Database
                             );
     }
 
+    private static function createBinds(int $qtd) : string
+    {
+        $bindsCreated = '';
+
+        for ($i=0; $i < $qtd; $i++) { 
+            if( $i === 0 ){
+                $bindsCreated .= '?';
+            }else{
+                $bindsCreated .= ', ?';
+            }
+        }
+
+        return $bindsCreated;
+    }
+
     public static function create(
         string $tableName,
         array $data,
         array $condition
     )
     { // Insert data into database
-        
+           
     }
 
     public static function read(
