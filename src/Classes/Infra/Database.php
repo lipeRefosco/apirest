@@ -7,11 +7,11 @@ use PDO;
 class Database
 {
 
-    private static string $DB_DRIVER      =   'mysql';
-    private static string $DB_HOST        =   'localhost';
-    private static string $DB_DATABASE    =   'apirest';
-    private static string $DB_USER        =   'root';
-    private static string $DB_PASS        =   '';
+    private string $DB_DRIVER      =   'mysql';
+    private string $DB_HOST        =   'localhost';
+    private string $DB_DATABASE    =   'apirest';
+    private string $DB_USER        =   'root';
+    private string $DB_PASS        =   '';
     private PDO $connect;
 
     public function __construct()
@@ -40,7 +40,7 @@ class Database
     }
 
     private static function formatCondition(array $condition) : string
-    {
+    { // Will format condition to SQL format
         // Will check if have some item into array
         if( count($condition) ){
     
@@ -74,7 +74,7 @@ class Database
     }
 
     private static function formatFilds( array $rawFilds) : string
-    {
+    { // Will format the filds to SQL format
         if( count($rawFilds) ){
 
             $formatedFilds = '';
@@ -94,12 +94,27 @@ class Database
         }
     }
 
-    public static function create(
+    public function create(
         string $tableName,
         array $data,
         array $condition
     )
     { // Insert data into database
+        
+        // Raw data
+        $dataFilds = array_keys($data);
+        $dataValues = array_values($data);
+        
+        // Formated Data 
+        $dataBinds = self::createBinds( count($dataValues) );
+        $fildsFormated = self::formatFilds($dataFilds);
+        $whereFormated = self::formatCondition( $condition );
+
+        // INSERT INTO `tableName` (`id`, `name`, `description`, `price`, `cat_id`) VALUES (dataValues) WHERE ;
+        $sql = "INSERT INTO $tableName ($fildsFormated) VALUES ($dataBinds) $whereFormated;";
+        
+        $statement = $this->connect->prepare($sql);
+        $statement->execute($dataValues);
     }
 
     public static function read(
