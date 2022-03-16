@@ -25,7 +25,7 @@ class Database
     }
 
     private static function createBinds(int $qtd) : string
-    {
+    { // This method create binds 
         $bindsCreated = '';
 
         for ($i=0; $i < $qtd; $i++) { 
@@ -39,13 +39,46 @@ class Database
         return $bindsCreated;
     }
 
+    private static function formatCondition(array $condition) : string
+    {
+        // Will check if have some item into array
+        if( count($condition) ){
+    
+            
+            $condKeys = array_keys($condition);
+            $condValues = array_values($condition);
+            $where = '';
+    
+            // This for will scan the values checking if they are string 
+            for($i = 0; $i < count($condition); $i++){ 
+                if( is_string($condValues[$i]) ){
+                    if($i === count($condition) - 1){
+                        $where .= $condKeys[$i] . "='" . $condValues[$i] . "'";
+                    }else{
+                        $where .= $condKeys[$i] . "='" . $condValues[$i] . "' AND ";
+                    }
+                }else{
+                    if($i === count($condition) - 1){
+                        $where .= $condKeys[$i] . "=" . $condValues[$i];
+                    }else{
+                        $where .= $condKeys[$i] . "=" . $condValues[$i] . " AND ";
+                    }
+                }
+            }
+    
+            return "WHERE $where;";
+        }else{
+            //
+            return '';
+        }
+    }
+
     public static function create(
         string $tableName,
         array $data,
         array $condition
     )
     { // Insert data into database
-           
     }
 
     public static function read(
