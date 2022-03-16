@@ -11,7 +11,7 @@ class Database
     private static string $DB_HOST        =   'localhost';
     private static string $DB_DATABASE    =   'apirest';
     private static string $DB_USER        =   'root';
-    private string $DB_PASS        =   '';
+    private static string $DB_PASS        =   '';
     private PDO $connect;
 
     public function __construct()
