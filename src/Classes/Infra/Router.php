@@ -2,8 +2,6 @@
 
     namespace App\Infra;
 
-use BadFunctionCallException;
-
     class Router
     {
         private static string $wraperEndPoint = 'endpoint';
