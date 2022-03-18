@@ -2,7 +2,7 @@
 
 namespace App\Domain\Interfaces;
 
-interface ServicesInterface
+interface Services
 {
     public static function get();
 
