@@ -64,7 +64,7 @@
                 exit();
             }
 
-            return $request['REQUEST_METHOD'];
+            return strtolower( $request['REQUEST_METHOD'] );
         }
 
         private static function setData( array $dataRequest ) : array

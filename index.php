@@ -1,10 +1,8 @@
 <?php
 
-header('Content-Type: application/json; charset=utf-8');
-
-use App\Infra\Router;
+header('Content-Type: application/json;');
 require_once "vendor/autoload.php";
-
+use App\Infra\Router;
 Router::handler(
     $_GET,
     $_SERVER,

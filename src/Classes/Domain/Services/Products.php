@@ -2,9 +2,10 @@
 
 namespace App\Domain\Service;
 
-use App\Domain\Interfaces\ServicesInterface;
+use App\Domain\Interfaces\Services;
+use App\Infra\Response;
 
-class Products implements ServicesInterface
+class Products implements Services
 {
     // O que fazer?
         // Ver o que o veio do request: 
@@ -13,6 +14,24 @@ class Products implements ServicesInterface
             // se não é apenas uma consulta
                 // codigo de exibicao .... 
 
-    
+    public static function get()
+    {
+        Response::json("alo");
+    }
+
+    public static function post()
+    {
+
+    }
+
+    public static function put()
+    {
+
+    }
+
+    public static function delete()
+    {
+
+    }
 
 }
