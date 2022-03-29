@@ -31,15 +31,16 @@
             if( $endPoint[ self::$wraperEndPoint ] === null ){
                 Response::json("Endpoint não definido!");
                 exit();
-            }else{
-                $route = explode('/', $endPoint[ self::$wraperEndPoint ]);
             }
-
+            
+            // Split the EndPoint
+            $route = explode('/', $endPoint[ self::$wraperEndPoint ]);
 
             if( !isset($route[0]) ){
                 Response::json("Servico indefinido!");
-                exit();
+                exit();    
             }
+            
             return $route[0];
 
         }
@@ -90,7 +91,7 @@
             // Call Service Referenced
             call_user_func_array(
                 [
-                    'App\\Domain\\Service\\' . // Namespace to all Services
+                    'App\\Domain\\Services\\' . // Namespace to all Services
                     self::$service,            // Call Service.
                     self::$requestMethod       // Call Service Method based from Request Method
                 ],
