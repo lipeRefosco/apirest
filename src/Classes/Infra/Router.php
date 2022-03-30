@@ -2,6 +2,8 @@
 
     namespace App\Infra;
 
+    use Error;
+
     class Router
     {
         private static string $wraperEndPoint = 'endpoint';
@@ -76,28 +78,25 @@
             return $dataRequest;
         }
 
-        private static function verifyService( string $service )
-        {
-            if(!class_exists($service)){
-                Response::json("Serviço inexistente!");
-                exit();
-            }
-        }
-
         public static function go() : void
         {
-            self::verifyService( self::$service );
-            
+
             // Call Service Referenced
-            call_user_func_array(
-                [
-                    'App\\Domain\\Services\\' . // Namespace to all Services
-                    self::$service,            // Call Service.
-                    self::$requestMethod       // Call Service Method based from Request Method
-                ],
-                [self::$data]
-            );
-        
+            try{
+
+                    call_user_func_array(
+                        [
+                            'App\Domain\Services\\' . self::$service,
+                            self::$requestMethod       // Call Service Method
+                        ],
+                        [self::$data]
+                    );
+
+            }catch(Error $e){
+
+                Response::json([ $e->getMessage() ]);
+
+            }
 
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Service;
+namespace App\Domain\Services;
 
 use App\Domain\Interfaces\Services;
 use App\Infra\Response;

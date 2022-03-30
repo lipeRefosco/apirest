@@ -5,6 +5,7 @@ header('Content-Type: application/json;');
 require_once "vendor/autoload.php";
 
 use App\Infra\Router;
+use App\Domain\Services;
 
 Router::handler(
     $_GET,
